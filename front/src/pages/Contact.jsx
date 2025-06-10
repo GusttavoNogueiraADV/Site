@@ -1,4 +1,3 @@
-// src/pages/Contact.js
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Typography, Modal } from 'antd';
@@ -7,7 +6,6 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import Cookies from './Cookies';
 import Politics from './Politics';
 import About from './About';
-
 
 const { Title } = Typography;
 const API_URL = process.env.REACT_APP_API_URL;
@@ -21,7 +19,6 @@ const Contact = ({ onShowDesk }) => {
     const [iframeHeight, setIframeHeight] = useState('90vh');
     const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
     const [aboutType, setAboutType] = useState('missao');
-
 
     useEffect(() => {
         const updateIframeHeight = () => {
@@ -39,12 +36,20 @@ const Contact = ({ onShowDesk }) => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const [bgRes, logoRes] = await Promise.all([
-                    axios.get(`${API_URL}/imagem/fundo.jpg`),
-                    axios.get(`${API_URL}/imagem/Logotipo.png`)
-                ]);
-                setBgUrl(bgRes.data.url);
-                setLogoTipoUrl(logoRes.data.url);
+                const response = await axios.get(`${API_URL}/images-info`);
+
+                // Verificando se a resposta está correta
+                console.log('Resposta da API de imagens:', response.data);
+
+                if (response.data && response.data.length > 0) {
+                    // Encontrando as imagens de fundo e logo dentro da resposta
+                    const background = response.data.find(image => image.name === 'background');
+                    const logotipo = response.data.find(image => image.name === 'logo');
+
+                    // Atualizando os estados com as URLs das imagens encontradas
+                    if (background) setBgUrl(background.url);
+                    if (logotipo) setLogoTipoUrl(logotipo.url);
+                }
             } catch (error) {
                 console.error('Erro ao carregar imagens de contato:', error);
             }
@@ -61,7 +66,6 @@ const Contact = ({ onShowDesk }) => {
         setAboutType(tipo);
         setIsAboutModalOpen(true);
     };
-
 
     const sectionFlexStyle = {
         display: 'flex',
@@ -204,11 +208,13 @@ const Contact = ({ onShowDesk }) => {
                         }}
                         className="blue-left"
                     >
-                        <img
-                            src={logotipoUrl}
-                            alt="Logo"
-                            style={{ width: '180px', marginBottom: '12px' }}
-                        />
+                        {logotipoUrl && (
+                            <img
+                                src={logotipoUrl}
+                                alt="Logo"
+                                style={{ width: '180px', marginBottom: '12px' }}
+                            />
+                        )}
                         <p
                             style={{
                                 fontWeight: '500',
@@ -339,6 +345,7 @@ const Contact = ({ onShowDesk }) => {
                     Victor Lima
                 </a>
             </footer>
+
             <Cookies
                 open={isCookiesModalOpen}
                 onCancel={() => setIsCookiesModalOpen(false)}
@@ -353,67 +360,11 @@ const Contact = ({ onShowDesk }) => {
                 closeIcon={<CloseCircleOutlined style={{ fontSize: 28, color: '#ff4d4f' }} />}
             />
 
-
             <About
                 open={isAboutModalOpen}
                 onClose={() => setIsAboutModalOpen(false)}
                 type={aboutType}
             />
-
-
-
-            <style>{`
-        @media (max-width: 768px) {
-          .contact-main-container {
-            flex-direction: column !important;
-            font-size: 1.2rem !important;
-          }
-          .contact-left {
-            padding-right: 0 !important;
-            padding-bottom: 20px;
-            height: auto !important;
-          }
-          .contact-right {
-            padding-left: 0 !important;
-            font-size: 1rem !important;
-          }
-          .contact-left .vertical-line {
-            display: none !important;
-          }
-
-          .blue-section-container {
-            flex-direction: column !important;
-            font-size: 1rem !important;
-            min-height: auto !important;
-          }
-          .blue-left {
-            padding-right: 0 !important;
-            margin-bottom: 25px;
-            height: auto !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-          }
-          .blue-left div.vertical-line {
-            display: none !important;
-          }
-          .blue-right {
-            flex-direction: column !important;
-            gap: 20px !important;
-            padding-left: 0 !important;
-            font-size: 0.9rem !important;
-          }
-          .blue-right > div {
-            max-width: 100% !important;
-          }
-          .blue-right iframe {
-            width: 100% !important;
-            height: 200px !important;
-          }
-          .line {
-            display: none !important;
-          }
-        }
-      `}</style>
         </>
     );
 };

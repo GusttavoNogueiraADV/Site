@@ -22,33 +22,24 @@ const About = ({ open, onClose, type }) => {
 
   useEffect(() => {
     if (type === 'equipe' && open) {
-      const nomes = [
-        'Dr. Gusttavo Nogueira.jpg',
-        'Dr. Vinicius Meneses.jpeg',
-        'Dra. Juliana Andrade.jpeg',
-      ];
-
       const fetchEquipe = async () => {
         try {
-          const responses = await Promise.all(
-            nomes.map((nome) => axios.get(`${API_URL}/imagem/${nome}`))
-          );
+          // Fazendo a requisição para obter os membros da equipe, incluindo nome e URL da imagem
+          const { data } = await axios.get(`${API_URL}/equipe`);
 
-          const membros = responses.map((res, idx) => {
-            const nomeCompleto = nomes[idx]
-              .replace('.jpeg', '')
-              .replace('.jpg', '')
-              .replace(/Dr\.|Dra\./g, '')
-              .trim();
-
+          // Mapeando os membros recebidos para adicionar as descrições e as imagens
+          const membros = data.map((item) => {
+            // Extraímos o nome da imagem (com base no nome da API e no formato do nome)
+            const nomeCompleto = item.name.replace('.jpeg', '').replace('.jpg', '').replace(/Dr\.|Dra\./g, '').trim();
+            
             return {
               nome: nomeCompleto,
               descricao: descricaoPorNome[nomeCompleto] || 'Descrição não disponível',
-              foto: res.data.url,
+              foto: item.url, // URL da imagem que foi retornada pela API
             };
           });
 
-          setEquipe(membros);
+          setEquipe(membros); // Atualiza o estado com os membros da equipe
         } catch (error) {
           console.error('Erro ao carregar equipe:', error);
         }

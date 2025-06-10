@@ -14,15 +14,29 @@ const Home = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const [logoRes, bgRes] = await Promise.all([
-          axios.get(`${API_URL}/imagem/logo.png`),
-          axios.get(`${API_URL}/imagem/fundo.jpg`),
-        ]);
+        const response = await axios.get(`${API_URL}/images-info`);
+        console.log('Resposta da API:', response.data);  // Verificando os dados
 
-        setLogoUrl(logoRes.data.url);
-        setBgUrl(bgRes.data.url);
+        if (response.data && response.data.length > 0) {
+          // Encontrando as imagens pelo nome correto
+          const logo = response.data.find(image => image.name === 'logo');
+          const background = response.data.find(image => image.name === 'background');
+
+          console.log('Logo encontrado:', logo);
+          console.log('Fundo encontrado:', background);
+
+          // Atualizando os estados com as URLs das imagens encontradas
+          if (logo) {
+            setLogoUrl(logo.url);
+          }
+          if (background) {
+            setBgUrl(background.url);
+          }
+        } else {
+          console.error('Nenhuma imagem encontrada');
+        }
       } catch (error) {
-        console.error('Erro ao carregar imagens:', error);
+        console.error('Erro ao carregar imagens:', error.message);
       }
     };
 
@@ -121,7 +135,6 @@ const Home = () => {
             marginTop: '20px',
           }}
         />
-
       </section>
     </>
   );

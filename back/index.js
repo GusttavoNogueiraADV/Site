@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const history = require('connect-history-api-fallback');
 require('dotenv').config();
 
 const app = express();
@@ -8,19 +9,18 @@ app.use(cors());
 app.use(express.json());
 
 // Rotas API
-const imagemRouter = require('./routes/imagens');
+const equipeRouter = require('./routes/equipe');
 const deskCardsRouter = require('./routes/deskCards');
 const servicesRouter = require('./routes/services');
+const imagesInfoRouter = require('./routes/imagesInfo');
 
-app.use('/imagem', imagemRouter);
+// Colocamos as rotas antes do history() para não sobrepor com o React Router
+app.use('/equipe', equipeRouter);
 app.use('/desk-cards', deskCardsRouter);
 app.use('/services', servicesRouter);
+app.use('/images-info', imagesInfoRouter);
 
-// Serve frontend React build (após rotas API)
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+app.use(history());
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
