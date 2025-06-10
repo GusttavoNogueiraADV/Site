@@ -12,7 +12,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const Contact = ({ onShowDesk }) => {
     const [bgUrl, setBgUrl] = useState('');
-    const [logotipoUrl, setLogoTipoUrl] = useState('');
+    const [logoTipoUrl, setLogoTipoUrl] = useState('');
     const [isCookiesModalOpen, setIsCookiesModalOpen] = useState(false);
     const [isPoliticsModalOpen, setIsPoliticsModalOpen] = useState(false);
     const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -23,9 +23,9 @@ const Contact = ({ onShowDesk }) => {
     useEffect(() => {
         const updateIframeHeight = () => {
             if (window.innerWidth <= 768) {
-                setIframeHeight('60vh'); // altura menor no mobile
+                setIframeHeight('60vh');
             } else {
-                setIframeHeight('90vh'); // altura maior no desktop
+                setIframeHeight('90vh');
             }
         };
         updateIframeHeight();
@@ -37,18 +37,15 @@ const Contact = ({ onShowDesk }) => {
         const fetchImages = async () => {
             try {
                 const response = await axios.get(`${API_URL}/images-info`);
+                
+                // Assuming the API returns an array of images with name and url properties
+                if (response.data && Array.isArray(response.data)) {
+                    const background = response.data.find(img => img.name === 'background');
+                    const logotipo = response.data.find(img => img.name === 'logotipo');
+                    
+                   if (background) setBgUrl(background.url);
+if (logotipo) setLogoTipoUrl(logotipo.url);
 
-                // Verificando se a resposta está correta
-                console.log('Resposta da API de imagens:', response.data);
-
-                if (response.data && response.data.length > 0) {
-                    // Encontrando as imagens de fundo e logo dentro da resposta
-                    const background = response.data.find(image => image.name === 'background');
-                    const logotipo = response.data.find(image => image.name === 'logo');
-
-                    // Atualizando os estados com as URLs das imagens encontradas
-                    if (background) setBgUrl(background.url);
-                    if (logotipo) setLogoTipoUrl(logotipo.url);
                 }
             } catch (error) {
                 console.error('Erro ao carregar imagens de contato:', error);
@@ -208,9 +205,9 @@ const Contact = ({ onShowDesk }) => {
                         }}
                         className="blue-left"
                     >
-                        {logotipoUrl && (
+                        {logoTipoUrl && (
                             <img
-                                src={logotipoUrl}
+                                src={logoTipoUrl}
                                 alt="Logo"
                                 style={{ width: '180px', marginBottom: '12px' }}
                             />
@@ -259,39 +256,38 @@ const Contact = ({ onShowDesk }) => {
                         <div>
                             <h3 style={{ marginBottom: '12px', fontSize: '1.1rem' }}>Políticas</h3>
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: 1.4 }}>
-                                <li onClick={() => openPoliticsModal('privacidade')} style={{ cursor: 'pointer', textDecoration: 'underline', textDecoration: 'none' }}>
+                                <li onClick={() => openPoliticsModal('privacidade')} style={{ cursor: 'pointer', textDecoration: 'none' }}>
                                     Privacidade
                                 </li>
-                                <li onClick={() => openPoliticsModal('termos')} style={{ cursor: 'pointer', textDecoration: 'underline', textDecoration: 'none' }}>
+                                <li onClick={() => openPoliticsModal('termos')} style={{ cursor: 'pointer', textDecoration: 'none' }}>
                                     Termos de Uso
                                 </li>
                                 <li
-                                    style={{ textDecoration: 'underline', cursor: 'pointer', textDecoration: 'none' }}
+                                    style={{ cursor: 'pointer', textDecoration: 'none' }}
                                     onClick={() => setIsCookiesModalOpen(true)}
                                 >
                                     Cookies
                                 </li>
                             </ul>
-
                         </div>
 
                         <div>
                             <h3 style={{ marginBottom: '12px', fontSize: '1.1rem' }}>Sobre</h3>
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: 1.4 }}>
                                 <li
-                                    style={{ cursor: 'pointer', color: '#FEDC96', textDecoration: 'underline', textDecoration: 'none', color: '#fff' }}
+                                    style={{ cursor: 'pointer', textDecoration: 'none', color: '#fff' }}
                                     onClick={() => openAbout('equipe')}
                                 >
                                     Equipe
                                 </li>
                                 <li
-                                    style={{ cursor: 'pointer', color: '#FEDC96', textDecoration: 'underline', textDecoration: 'none', color: '#fff' }}
+                                    style={{ cursor: 'pointer', textDecoration: 'none', color: '#fff' }}
                                     onClick={() => openAbout('missao')}
                                 >
                                     Missão
                                 </li>
                                 <li
-                                    style={{ cursor: 'pointer', color: '#FEDC96', textDecoration: 'underline', textDecoration: 'none', color: '#fff' }}
+                                    style={{ cursor: 'pointer', textDecoration: 'none', color: '#fff' }}
                                     onClick={() => {
                                         if (onShowDesk) onShowDesk();
                                     }}
@@ -365,6 +361,59 @@ const Contact = ({ onShowDesk }) => {
                 onClose={() => setIsAboutModalOpen(false)}
                 type={aboutType}
             />
+
+            <style>{`
+                @media (max-width: 768px) {
+                    .contact-main-container {
+                        flex-direction: column !important;
+                        font-size: 1.2rem !important;
+                    }
+                    .contact-left {
+                        padding-right: 0 !important;
+                        padding-bottom: 20px;
+                        height: auto !important;
+                    }
+                    .contact-right {
+                        padding-left: 0 !important;
+                        font-size: 1rem !important;
+                    }
+                    .contact-left .vertical-line {
+                        display: none !important;
+                    }
+
+                    .blue-section-container {
+                        flex-direction: column !important;
+                        font-size: 1rem !important;
+                        min-height: auto !important;
+                    }
+                    .blue-left {
+                        padding-right: 0 !important;
+                        margin-bottom: 25px;
+                        height: auto !important;
+                        align-items: flex-start !important;
+                        text-align: left !important;
+                    }
+                    .blue-left div.vertical-line {
+                        display: none !important;
+                    }
+                    .blue-right {
+                        flex-direction: column !important;
+                        gap: 20px !important;
+                        padding-left: 0 !important;
+                        font-size: 0.9rem !important;
+                    }
+                    .blue-right > div {
+                        max-width: 100% !important;
+                    }
+                    .blue-right iframe {
+                        width: 100% !important;
+                        height: 200px !important;
+                    }
+                    .line {
+                        display: none !important;
+                    }
+                }
+            `}</style>
         </>
     );
 };
