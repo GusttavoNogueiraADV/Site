@@ -22,7 +22,7 @@ app.use('/images-info', imagesInfoRouter);
 
 app.use(history());
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Backend rodando na porta ${PORT}`);
 });
