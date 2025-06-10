@@ -1,0 +1,28 @@
+# Dependências
+node_modules/
+
+# Logs
+*.log
+
+# Arquivos de ambiente
+.env
+
+# Arquivos temporários de editores
+.vscode/
+.idea/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+# Diretórios de build
+build/
+
+# Diretórios de dependências (para npm ou yarn)
+node_modules/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
