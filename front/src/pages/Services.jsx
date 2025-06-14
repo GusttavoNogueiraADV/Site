@@ -12,11 +12,21 @@ const Services = () => {
   const [cardWidthPx, setCardWidthPx] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    axios.get(`${API_URL}/services`)
-      .then(response => setCards(response.data))
-      .catch(error => console.error('Erro ao buscar serviços:', error));
+ useEffect(() => {
+    const fetchLocalCards = async () => {
+      try {
+        const res = await fetch('/json/services.json'); 
+        const data = await res.json();
+        const sortedCards = data.sort((a, b) => a.id - b.id);
+        setCards(sortedCards);
+      } catch (error) {
+        console.error('Erro ao carregar cards do JSON local:', error);
+      }
+    };
+
+    fetchLocalCards();
   }, []);
+
 
   const cardsCount = cards.length;
   const duplicatedCards = [...cards, ...cards, ...cards];

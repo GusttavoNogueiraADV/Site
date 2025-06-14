@@ -1,91 +1,131 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Typography } from 'antd';
 import PolaroidCard from '../components/PolaroidCard';
+
 const { Title } = Typography;
 
-const posts = [
-  {
-    id: 1,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card1.mp4',
-    caption: '🎯 Sabia que o aviso prévio pode passar de 30 dias?',
-  },
-  {
-    id: 2,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card2.mp4',
-    caption: 'A rescisão indireta ocorre quando o funcionário pede o desligamento do contrato de trabalho, como se estivesse “demitindo” o empregador, devido ao descumprimento de obrigações ou falhas graves que tornam o ambiente de trabalho insus.mp4',
-  },
-  {
-    id: 3,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card3.mp4',
-    caption: '🕢💸Você sabe o que acontece com o saldo do Banco de Horas quando há uma rescisão contratual É simples, mas requer atenção. Se na rescisão o empregado tiver horas a compensar',
-  },
-  {
-    id: 4,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card4.jpg',
-    caption: 'a Justiça já decidiu que ter tatuagem não pode ser motivo de exclusão em concursos públicos – exceto em casos muito específicos, como apologia ao crime ou preconceito.Se você foi eliminado por esse motivo, você pode recorrer!Neste',
-  }, 
-   {
-    id: 5,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card5.jpg',
-    caption: 'Honra, coragem e princípios. Pressupostos de toda conquista.',
-  },
-   {
-    id: 6,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card6.mp4',
-    caption: 'Vínculo empregatício com babá de bebê reborn? Pode parecer inusitado',
-  },
-   {
-    id: 7,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card7.jpg',
-    caption: 'Veículo apreendido por erro do DETRAN? Você pode ter direito à indenização!',
-  },
-  {
-    id: 8,
-    src: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/instagram-cards//card8.mp4',
-    caption: 'Você sabia que pode ter o dia e até o DSR descontados se não entregar o atestado no prazo?',
-  },
-];
+const desktopCardWidth = 280;
+const desktopCardHeight = 400;
 
-const cardWidth = 300; 
-const cardHeight = 400; 
+const mobileCardWidth = 160;
+const mobileCardHeight = 220;
 
-const getRandomRotation = () => Math.floor(Math.random() * 20 - 10);
+const margin = 15;
 
-const getRandomPosition = () => {
-  const maxTop = window.innerHeight - cardHeight;
-  const maxLeft = window.innerWidth - cardWidth;
-  const topPx = Math.random() * maxTop;
-  const leftPx = Math.random() * maxLeft;
+const getRandomOffsetMobile = () => Math.floor(Math.random() * 20 - 10); 
 
-  return {
-    top: topPx,
-    left: leftPx,
-  };
-};
+const getRandomRotation = () => Math.floor(Math.random() * 20 - 10); 
 
 const Instagram = () => {
+  const [posts, setPosts] = useState([]);
   const [cardStyles, setCardStyles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/json/instagram.json')
+      .then((res) => {
+        if (!res.ok) throw new Error('Erro ao carregar JSON');
+        return res.json();
+      })
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      const generated = posts.map(() => {
-        const { top, left } = getRandomPosition();
-        const rotate = getRandomRotation();
-        return {
-          top: `${top}px`,
-          left: `${left}px`,
-          transform: `rotate(${rotate}deg)`,
-        };
-      });
-      setCardStyles(generated);
+      setIsMobile(window.innerWidth < 768);
     };
-
-    handleResize(); // gera posições iniciais
-
-    window.addEventListener('resize', handleResize); // atualiza no resize
-
+    window.addEventListener('resize', handleResize);
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const generateStylesDesktop = () => {
+    return posts.map(() => {
+      const top = margin + Math.random() * (window.innerHeight - desktopCardHeight - margin);
+      const left = margin + Math.random() * (window.innerWidth - desktopCardWidth - margin);
+      const rotate = getRandomRotation();
+      return {
+        position: 'absolute',
+        top: `${top}px`,
+        left: `${left}px`,
+        width: `${desktopCardWidth}px`,
+        height: `${desktopCardHeight}px`,
+        transform: `rotate(${rotate}deg)`,
+        transition: 'top 8s ease-in-out, left 8s ease-in-out, transform 8s ease-in-out',
+        cursor: 'pointer',
+        zIndex: 1,
+      };
+    });
+  };
+
+  const generateStylesMobile = () => {
+    const w = mobileCardWidth;
+    const h = mobileCardHeight;
+
+    return posts.map(() => {
+      const offsetTop = getRandomOffsetMobile();
+      const offsetLeft = getRandomOffsetMobile();
+      const rotate = getRandomRotation();
+
+      return {
+        position: 'absolute',
+        top: `${offsetTop}px`,
+        left: `${offsetLeft}px`,
+        width: `${w}px`,
+        height: `${h}px`,
+        transform: `rotate(${rotate}deg)`,
+        transition: 'top 8s ease-in-out, left 8s ease-in-out, transform 8s ease-in-out',
+        cursor: 'pointer',
+        zIndex: 1,
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (posts.length === 0) return;
+
+    if (isMobile) {
+      setCardStyles(generateStylesMobile());
+    } else {
+      setCardStyles(generateStylesDesktop());
+    }
+
+    intervalRef.current = setInterval(() => {
+      if (isMobile) {
+        setCardStyles(generateStylesMobile());
+      } else {
+        setCardStyles(generateStylesDesktop());
+      }
+    }, 10000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [posts, isMobile]);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          ...styles.wrapper,
+          color: '#fff',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+        }}
+      >
+        Carregando posts...
+      </div>
+    );
+  }
 
   return (
     <div style={styles.wrapper}>
@@ -96,29 +136,82 @@ const Instagram = () => {
             fontFamily: 'Questrial, sans-serif',
             color: '#fff',
             marginBottom: '55px',
-            fontSize: '42px',
+            fontSize: isMobile ? '22px' : '42px', 
             fontWeight: 400,
             textAlign: 'center',
           }}
         >
-          No <span style={{ fontSize: '48px', fontWeight: 'bold' }}>Instagram</span>
+          No{' '}
+          <span style={{ fontSize: isMobile ? '24px' : '48px', fontWeight: 'bold' }}>
+            Instagram
+          </span>
         </Title>
       </div>
 
-      {posts.map((post, index) => (
-        <a 
-          key={post.id} 
-          href="https://www.instagram.com/advgusttavonogueira/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          style={{ textDecoration: 'none' }}
+      {isMobile ? (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: '12px',
+            width: '100%',
+            padding: '0 10px',
+            position: 'relative', 
+            minHeight: 'calc(220px * ' + Math.ceil(posts.length / 2) + ' + 20px)',
+          }}
         >
-          <PolaroidCard
-            post={post}
-            style={{ ...styles.card, ...cardStyles[index] }}
-          />
-        </a>
-      ))}
+          {posts.map((post, index) => (
+            <div
+              key={post.id}
+              style={{
+                position: 'relative',
+                width: `${mobileCardWidth}px`,
+                height: `${mobileCardHeight}px`,
+                overflow: 'visible', 
+              }}
+            >
+              <a
+                href="https://www.instagram.com/advgusttavonogueira/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <PolaroidCard
+                  post={post}
+                  isMobile={isMobile}
+                  style={cardStyles[index]}
+                />
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100vh',
+            minHeight: '600px',
+            overflow: 'hidden',
+          }}
+        >
+          {posts.map((post, index) => (
+            <a
+              key={post.id}
+              href="https://www.instagram.com/advgusttavonogueira/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <PolaroidCard
+                post={post}
+                isMobile={isMobile}
+                style={cardStyles[index]}
+              />
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -127,22 +220,18 @@ const styles = {
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '100vh',
+    minHeight: '100vh',
     background: '#0A203A',
     overflow: 'hidden',
     fontFamily: 'Questrial, sans-serif',
+    paddingBottom: 40,
   },
   titleWrapper: {
-    position: 'absolute',
-    top: 30,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    zIndex: 5,
-    width: '100%',
-  },
-  card: {
-    position: 'absolute',
-    cursor: 'pointer', // deixa cursor de link
+    position: 'relative',
+    paddingTop: 30,
+    paddingBottom: 30,
+    textAlign: 'center',
+    zIndex: 10,
   },
 };
 

@@ -1,33 +1,24 @@
-import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
-import axios from 'axios';
 import CardEquipe from '../components/CardEquipe';
 
 const { Title } = Typography;
-const API_URL = process.env.REACT_APP_API_URL;
+
+const membros = [
+  {
+    nome: 'Dr. Gusttavo Nogueira',
+    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Gusttavo%20Nogueira.jpg',
+  },
+  {
+    nome: 'Dr. Vinicius Meneses',
+    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Vinicius%20Meneses.jpeg',
+  },
+  {
+    nome: 'Dra. Juliana Andrade',
+    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dra.%20Juliana%20Andrade.jpeg',
+  },
+];
 
 const Equipe = () => {
-  const [members, setMembers] = useState([]);
-
-  useEffect(() => {
-    const fetchEquipe = async () => {
-      try {
-        const { data } = await axios.get(`${API_URL}/equipe`);
-
-        const membros = data.map((item) => ({
-          nome: item.name,
-          imagem: item.url,
-        }));
-
-        setMembers(membros);
-      } catch (error) {
-        console.error('Erro ao carregar a equipe:', error);
-      }
-    };
-
-    fetchEquipe();
-  }, []);
-
   return (
     <section
       style={{
@@ -68,7 +59,7 @@ const Equipe = () => {
           gap: '60px',
         }}
       >
-        {members.map((member) => (
+        {membros.map((member) => (
           <CardEquipe
             key={member.nome}
             nome={member.nome}

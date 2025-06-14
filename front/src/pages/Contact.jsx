@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Typography, Modal } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 
@@ -8,11 +7,11 @@ import Politics from './Politics';
 import About from './About';
 
 const { Title } = Typography;
-const API_URL = process.env.REACT_APP_API_URL;
+
+const logoTipoUrl = 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Logotipo.png';
+const bgUrl = 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//fundo.jpg';
 
 const Contact = ({ onShowDesk }) => {
-    const [bgUrl, setBgUrl] = useState('');
-    const [logoTipoUrl, setLogoTipoUrl] = useState('');
     const [isCookiesModalOpen, setIsCookiesModalOpen] = useState(false);
     const [isPoliticsModalOpen, setIsPoliticsModalOpen] = useState(false);
     const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -31,27 +30,6 @@ const Contact = ({ onShowDesk }) => {
         updateIframeHeight();
         window.addEventListener('resize', updateIframeHeight);
         return () => window.removeEventListener('resize', updateIframeHeight);
-    }, []);
-
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/images-info`);
-                
-                // Assuming the API returns an array of images with name and url properties
-                if (response.data && Array.isArray(response.data)) {
-                    const background = response.data.find(img => img.name === 'background');
-                    const logotipo = response.data.find(img => img.name === 'logotipo');
-                    
-                   if (background) setBgUrl(background.url);
-if (logotipo) setLogoTipoUrl(logotipo.url);
-
-                }
-            } catch (error) {
-                console.error('Erro ao carregar imagens de contato:', error);
-            }
-        };
-        fetchImages();
     }, []);
 
     const openPoliticsModal = (policy) => {
@@ -376,6 +354,10 @@ if (logotipo) setLogoTipoUrl(logotipo.url);
                     .contact-right {
                         padding-left: 0 !important;
                         font-size: 1rem !important;
+                    }
+                         .contact-right p {
+                        padding-left: 0 !important;
+                        font-size: 1.1rem !important;
                     }
                     .contact-left .vertical-line {
                         display: none !important;

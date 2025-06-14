@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "titulo": "Rescisão indireta",
+    "texto": "Você está sofrendo com atrasos salariais, assédio no trabalho ou falta de condições para exercer sua função? A rescisão indireta é como uma “justa causa” ao contrário: é o empregado que pede para sair por culpa do empregador. Nesses casos, você pode sair do trabalho e ainda receber todos os seus direitos, como se tivesse sido demitido sem justa causa. Nós analisamos seu caso e cuidamos de todo o processo!"
+  },
+  {
+    "id": 2,
+    "titulo": "Reversão de justa causa",
+    "texto": "Foi demitido por justa causa, mas acha que a empresa agiu de forma injusta ou exagerada? A reversão de justa causa é a chance de recuperar seus direitos. Através da Justiça, buscamos transformar essa demissão em sem justa causa, garantindo que você receba tudo o que tem direito: FGTS, multa de 40%, aviso prévio, seguro-desemprego e muito mais."
+  },
+  {
+    "id": 3,
+    "titulo": "Horas extras",
+    "texto": "Trabalhou além do combinado e não recebeu por isso? A lei garante que toda hora extra deve ser paga com adicional! Mesmo que você não tenha controle de ponto, existem formas de comprovar o excesso de jornada. Nossa equipe está pronta para garantir que você receba cada minuto que trabalhou a mais, com juros, correção e todos os adicionais previstos em lei."
+  },
+  {
+    "id": 4,
+    "titulo": "Pensão alimentícia",
+    "texto": "Se você precisa pedir ou revisar pensão alimentícia, conte com nosso apoio. Atuamos para garantir o melhor para você e sua família, sempre respeitando os direitos e deveres de quem paga e de quem recebe. Também auxiliamos em casos de atraso ou cobrança judicial, para que tudo seja resolvido com segurança e justiça."
+  },
+  {
+    "id": 5,
+    "titulo": "BPC Loas",
+    "texto": "Você ou um familiar tem deficiência ou idade acima de 65 anos e não tem meios de se sustentar? O BPC/Loas é um benefício do governo que garante um salário-mínimo por mês, mesmo para quem nunca contribuiu com o INSS. Muitos pedidos são negados por falhas no processo — e é aí que entra nosso trabalho: garantimos que seus direitos sejam reconhecidos!"
+  },
+  {
+    "id": 6,
+    "titulo": "Aposentadoria Estratégica",
+    "texto": "A aposentadoria não é mais como antigamente. Hoje, planejar é essencial. Com a aposentadoria estratégica, analisamos seu histórico, identificamos oportunidades e indicamos o melhor momento para pedir o benefício — garantindo que você ganhe mais e por mais tempo. Nada de perder dinheiro por falta de informação!"
+  },
+  {
+    "id": 7,
+    "titulo": "Benefícios do INSS",
+    "texto": "Doença, acidente, maternidade ou aposentadoria: se você precisa de qualquer benefício do INSS, nós ajudamos! Muitos pedidos são negados por falta de documentos ou erros simples. Com nossa orientação, você evita surpresas e aumenta suas chances de aprovação. E se o INSS negar? Vamos à Justiça buscar seus direitos."
+  }
+]

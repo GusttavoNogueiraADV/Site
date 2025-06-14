@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
 import CardBox from '../components/CardBox';
-import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 const Desk = () => {
   const [cards, setCards] = useState([]);
 
-  const fetchCards = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/desk-cards`);
-      setCards(res.data);
-    } catch (err) {
-      console.error('Erro ao carregar cards:', err);
-    }
-  };
-
   useEffect(() => {
-    fetchCards();
+    const fetchLocalCards = async () => {
+      try {
+        const res = await fetch('/json/desk.json'); 
+        const data = await res.json();
+        const sortedCards = data.sort((a, b) => a.id - b.id);
+        setCards(sortedCards);
+      } catch (error) {
+        console.error('Erro ao carregar cards do JSON local:', error);
+      }
+    };
+
+    fetchLocalCards();
   }, []);
 
   return (
@@ -143,7 +143,6 @@ const Desk = () => {
           animation: 'gradientShift 15s ease infinite',
         }}
       >
-        {/* Overlay escuro para contraste */}
         <div
           style={{
             position: 'absolute',
@@ -156,15 +155,18 @@ const Desk = () => {
           }}
         />
 
-        {/* Conteúdo principal */}
         <div style={{ zIndex: 1, maxWidth: '1200px', width: '100%', textAlign: 'center' }}>
           <div className="cards-container">
-            {cards.map((card) => (
-              <CardBox key={card.id} title={card.titulo} subtitle={card.subtitulo} />
+            {cards.map((card, index) => (
+              <CardBox
+                key={card.id}
+                title={card.titulo}
+                subtitle={card.subtitulo}
+                style={{ zIndex: index + 1 }} // opcional: para manipular a ordem visual
+              />
             ))}
           </div>
 
-          {/* Botão com responsividade */}
           <div className="desk-button-wrapper" style={{ marginTop: '20px', position: 'relative', zIndex: 20 }}>
             <Button
               text="Conhecer Escritório"
@@ -186,7 +188,6 @@ const Desk = () => {
               }}
               type="default"
             />
-
           </div>
         </div>
       </section>

@@ -1,0 +1,395 @@
+{
+  "menuPrincipal": {
+    "options": {
+      "D": {
+        "text": "⚖️ Direito Penal",
+        "next": "D"
+      },
+      "E": {
+        "text": "🏢 Direito Empresarial",
+        "next": "E"
+      },
+      "F": {
+        "text": "🛒 Direito do Consumidor",
+        "next": "F"
+      },
+      "G": {
+        "text": "👔 Direito Trabalhista",
+        "next": "G"
+      }
+    }
+  },
+  "D": {
+    "label": "Direito Penal",
+    "options": {
+      "D1": {
+        "text": "🚨 Prisão em flagrante",
+        "next": "D1"
+      },
+      "D2": {
+        "text": "📜 Denúncia ou processo criminal",
+        "next": "D2"
+      },
+      "D3": {
+        "text": "🛡 Medidas protetivas",
+        "next": "D3"
+      },
+      "D4": {
+        "text": "📅 Audiência criminal",
+        "next": "D4"
+      },
+      "D5": {
+        "text": "🔎 Outro",
+        "next": "D5"
+      },
+      "back": {
+        "text": "↩ Voltar ao Menu Principal",
+        "next": "menuPrincipal"
+      }
+    }
+  },
+  "D1": {
+    "label": "Quem foi preso em flagrante?",
+    "options": {
+      "c1": {
+        "text": "👤 Eu mesmo",
+        "conclusao": "Você mesmo foi preso em flagrante."
+      },
+      "c2": {
+        "text": "👪 Um conhecido",
+        "conclusao": "Um conhecido seu foi preso em flagrante."
+      },
+      "c3": {
+        "text": "🤝 Outra pessoa conhecida",
+        "conclusao": "Outra pessoa conhecida foi presa em flagrante."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "D"
+      }
+    }
+  },
+  "D2": {
+    "label": "Denúncia ou processo criminal",
+    "options": {
+      "c1": {
+        "text": "📩 Acabei de receber a denúncia",
+        "conclusao": "Você acabou de receber a denúncia."
+      },
+      "c2": {
+        "text": "⚖ Já estou respondendo ao processo",
+        "conclusao": "Você já está respondendo ao processo."
+      },
+      "c3": {
+        "text": "❓ Ainda não tenho certeza",
+        "conclusao": "Você ainda não tem certeza sobre o processo."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "D"
+      }
+    }
+  },
+  "D3": {
+    "label": "Medidas protetivas",
+    "options": {
+      "c1": {
+        "text": "🛡 Solicitar medidas protetivas",
+        "conclusao": "Quer solicitar medidas protetivas."
+      },
+      "c2": {
+        "text": "🚫 Defender-se de uma medida",
+        "conclusao": "Quer se defender de uma medida protetiva."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "D"
+      }
+    }
+  },
+  "D4": {
+    "label": "Audiência criminal",
+    "options": {
+      "c1": {
+        "text": "📅 Primeira audiência",
+        "conclusao": "Sobre a primeira audiência."
+      },
+      "c2": {
+        "text": "🎙 Audiência de instrução/julgamento",
+        "conclusao": "Sobre audiência de instrução ou julgamento."
+      },
+      "c3": {
+        "text": "⏰ Reagendamento ou ausência",
+        "conclusao": "Sobre reagendamento ou ausência."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "D"
+      }
+    }
+  },
+  "D5": {
+    "label": "Outro (Direito Penal)",
+    "options": {
+      "falarAdvogado": {
+        "text": "📞 Encaminhar para atendimento com advogado",
+        "conclusao": "Vamos encaminhar para atendimento com advogado."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "D"
+      }
+    }
+  },
+
+  "E": {
+    "label": "Direito Empresarial",
+    "options": {
+      "E1": {
+        "text": "📃 Contratos empresariais",
+        "next": "E1"
+      },
+      "E2": {
+        "text": "🏛 Abertura/alteração/encerramento",
+        "next": "E2"
+      },
+      "E3": {
+        "text": "🤝 Sócios e disputas",
+        "next": "E3"
+      },
+      "E4": {
+        "text": "💰 Cobranças e inadimplência",
+        "next": "E4"
+      },
+      "E5": {
+        "text": "🔎 Outro",
+        "next": "E5"
+      },
+      "back": {
+        "text": "↩ Voltar ao Menu Principal",
+        "next": "menuPrincipal"
+      }
+    }
+  },
+  "E1": {
+    "label": "Contratos empresariais",
+    "options": {
+      "c1": {
+        "text": "📝 Elaborar contrato",
+        "conclusao": "Quer elaborar contrato."
+      },
+      "c2": {
+        "text": "🔍 Revisar contrato",
+        "conclusao": "Quer revisar contrato."
+      },
+      "c3": {
+        "text": "⚔ Disputar cláusula",
+        "conclusao": "Quer disputar cláusula."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "E"
+      }
+    }
+  },
+  "E2": {
+    "label": "Abertura/alteração/encerramento",
+    "options": {
+      "c1": {
+        "text": "🏢 Abrir empresa",
+        "conclusao": "Quer abrir empresa."
+      },
+      "c2": {
+        "text": "✏ Alterar dados",
+        "conclusao": "Quer alterar dados da empresa."
+      },
+      "c3": {
+        "text": "❌ Encerrar empresa",
+        "conclusao": "Quer encerrar empresa."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "E"
+      }
+    }
+  },
+  "E3": {
+    "label": "Sócios e disputas",
+    "options": {
+      "c1": {
+        "text": "⚖ Conflito entre sócios",
+        "conclusao": "Sobre conflito entre sócios."
+      },
+      "c2": {
+        "text": "🚪 Entrada/saída de sócio",
+        "conclusao": "Sobre entrada ou saída de sócio."
+      },
+      "c3": {
+        "text": "📄 Regularizar contrato social",
+        "conclusao": "Quer regularizar contrato social."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "E"
+      }
+    }
+  },
+  "E4": {
+    "label": "Cobranças e inadimplência",
+    "options": {
+      "c1": {
+        "text": "💰 Cobrar cliente",
+        "conclusao": "Quer cobrar cliente."
+      },
+      "c2": {
+        "text": "⌛ Receber atrasados",
+        "conclusao": "Quer receber atrasados."
+      },
+      "c3": {
+        "text": "🤝 Negociar dívidas",
+        "conclusao": "Quer negociar dívidas."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "E"
+      }
+    }
+  },
+  "E5": {
+    "label": "Outro (Direito Empresarial)",
+    "options": {
+      "falarAdvogado": {
+        "text": "📞 Encaminhar para atendimento com advogado",
+        "conclusao": "Vamos encaminhar para atendimento com advogado."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "E"
+      }
+    }
+  },
+
+  "F": {
+    "label": "Direito do Consumidor",
+    "options": {
+      "c1": {
+        "text": "📦 Produto com defeito",
+        "conclusao": "Produto com defeito."
+      },
+      "c2": {
+        "text": "🛠 Problemas com serviços",
+        "conclusao": "Problemas com serviços."
+      },
+      "c3": {
+        "text": "❌ Cobrança indevida",
+        "conclusao": "Cobrança indevida."
+      },
+      "c4": {
+        "text": "🔄 Garantia ou troca",
+        "conclusao": "Garantia ou troca."
+      },
+      "F-Outro": {
+        "text": "🔎 Outro",
+        "next": "F-Outro"
+      },
+      "back": {
+        "text": "↩ Voltar ao Menu Principal",
+        "next": "menuPrincipal"
+      }
+    }
+  },
+  "F-Outro": {
+    "label": "Outro (Direito do Consumidor)",
+    "options": {
+      "falarAdvogado": {
+        "text": "📞 Encaminhar para atendimento com advogado",
+        "conclusao": "Vamos encaminhar para atendimento com advogado."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "F"
+      }
+    }
+  },
+
+  "G": {
+    "label": "Direito Trabalhista",
+    "options": {
+      "G1": {
+        "text": "❌ Fui demitido(a)",
+        "next": "G1"
+      },
+      "G2": {
+        "text": "⏰ Não recebi meus direitos",
+        "next": "G2"
+      },
+      "G3": {
+        "text": "🧾 Outros problemas trabalhistas",
+        "next": "G3"
+      },
+      "back": {
+        "text": "↩ Voltar ao Menu Principal",
+        "next": "menuPrincipal"
+      }
+    }
+  },
+  "G1": {
+    "label": "Fui demitido(a)",
+    "options": {
+      "c1": {
+        "text": "❌ Sem justa causa",
+        "conclusao": "Demissão sem justa causa."
+      },
+      "c2": {
+        "text": "⚠ Por justa causa",
+        "conclusao": "Demissão por justa causa."
+      },
+      "c3": {
+        "text": "📝 Pedido de demissão",
+        "conclusao": "Pedido de demissão."
+      },
+      "c4": {
+        "text": "🤝 Acordo entre as partes",
+        "conclusao": "Acordo entre as partes."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "G"
+      }
+    }
+  },
+  "G2": {
+    "label": "Não recebi meus direitos",
+    "options": {
+      "c1": {
+        "text": "🏝 Férias vencidas",
+        "conclusao": "Férias vencidas."
+      },
+      "c2": {
+        "text": "⏳ Horas extras",
+        "conclusao": "Horas extras."
+      },
+      "c3": {
+        "text": "🏦 FGTS não depositado",
+        "conclusao": "FGTS não depositado."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "G"
+      }
+    }
+  },
+  "G3": {
+    "label": "Outros problemas trabalhistas",
+    "options": {
+      "falarAdvogado": {
+        "text": "📞 Encaminhar para atendimento com advogado",
+        "conclusao": "Vamos encaminhar para atendimento com advogado."
+      },
+      "back": {
+        "text": "↩ Voltar",
+        "next": "G"
+      }
+    }
+  }
+}

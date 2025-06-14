@@ -1,48 +1,13 @@
-import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
 import TopBar from '../components/TopBar';
 import Button from '../components/Button';
-import axios from 'axios';
 
 const { Title } = Typography;
-const API_URL = process.env.REACT_APP_API_URL;
+
+const logoUrl = 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//logo.png';
+const bgUrl = 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//fundo.jpg';
 
 const Home = () => {
-  const [logoUrl, setLogoUrl] = useState('');
-  const [bgUrl, setBgUrl] = useState('');
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/images-info`);
-        console.log('Resposta da API:', response.data);  // Verificando os dados
-
-        if (response.data && response.data.length > 0) {
-          // Encontrando as imagens pelo nome correto
-          const logo = response.data.find(image => image.name === 'logo');
-          const background = response.data.find(image => image.name === 'background');
-
-          console.log('Logo encontrado:', logo);
-          console.log('Fundo encontrado:', background);
-
-          // Atualizando os estados com as URLs das imagens encontradas
-          if (logo) {
-            setLogoUrl(logo.url);
-          }
-          if (background) {
-            setBgUrl(background.url);
-          }
-        } else {
-          console.error('Nenhuma imagem encontrada');
-        }
-      } catch (error) {
-        console.error('Erro ao carregar imagens:', error.message);
-      }
-    };
-
-    fetchImages();
-  }, []);
-
   return (
     <>
       <TopBar />

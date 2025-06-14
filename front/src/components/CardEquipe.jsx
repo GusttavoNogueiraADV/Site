@@ -6,7 +6,6 @@ const CardEquipe = ({ nome, imagemUrl }) => {
         width: '300px',
         height: '500px', 
         margin: '10px',
-        borderRadius: '12px',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         cursor: 'pointer',
       }}
@@ -26,7 +25,6 @@ const CardEquipe = ({ nome, imagemUrl }) => {
           left: '-35px',
           width: '97%',
           height: '97%',
-            borderRadius: '12px',
           border: '3px solid #d4af37',
           borderRadius: '12px',
           zIndex: 0,
@@ -40,7 +38,6 @@ const CardEquipe = ({ nome, imagemUrl }) => {
           boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
           position: 'relative',
           fontFamily: 'Questrial, sans-serif',
-          borderRadius: '12px',
           zIndex: 1,
           backgroundColor: '#000',
           width: '100%',
@@ -53,7 +50,6 @@ const CardEquipe = ({ nome, imagemUrl }) => {
           style={{
             width: '100%',
             height: '100%',
-            borderRadius: '12px',
             objectFit: 'cover', 
             transition: 'transform 0.3s ease',
           }}

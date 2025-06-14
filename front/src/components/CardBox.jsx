@@ -1,8 +1,9 @@
 import React from 'react';
 
 const CardBox = ({ title, subtitle }) => {
-  const handleWhatsAppClick = () => {
-    const phone = '5513992102893'; // DDI + DDD + número
+  const handleWhatsAppClick = (e) => {
+    e.stopPropagation();
+    const phone = '5513992102893';
     const message = encodeURIComponent(
       'Olá, vi os serviços no site e gostaria de saber mais informações.'
     );
@@ -19,9 +20,21 @@ const CardBox = ({ title, subtitle }) => {
             {subtitle || 'Descrição não disponível no momento.'}
           </p>
           <div
-            className="saber-mais shine-text"
+            className="saber-mais"
             style={saberMais}
             onClick={handleWhatsAppClick}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#0A203A';
+              e.currentTarget.style.backgroundColor = '#FEDC96';
+              e.currentTarget.style.webkitTextStroke = '0';
+              e.currentTarget.style.transition = 'all 0.3s ease';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'transparent';
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.webkitTextStroke = '0.5px #FEDC96';
+              e.currentTarget.style.transition = 'all 0.3s ease';
+            }}
           >
             SABER+
           </div>
@@ -30,10 +43,6 @@ const CardBox = ({ title, subtitle }) => {
     </div>
   );
 };
-
-// ======================
-// 💅 Estilos
-// ======================
 
 const cardContainer = {
   width: '32%',
@@ -86,6 +95,7 @@ const cardText = {
 const saberMais = {
   position: 'absolute',
   bottom: '30px',
+  padding: '3px 20px',
   left: '20px',
   fontWeight: 'bold',
   fontSize: '14px',
@@ -93,10 +103,11 @@ const saberMais = {
   textAlign: 'left',
   zIndex: 1,
   overflow: 'hidden',
+  borderRadius: '10px',
   display: 'inline-block',
   WebkitTextStroke: '0.5px #FEDC96',
-  transition: 'color 0.3s ease',
   cursor: 'pointer',
+  transition: 'all 0.3s ease',
 };
 
 export default CardBox;
