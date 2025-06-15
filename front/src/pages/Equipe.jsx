@@ -1,24 +1,31 @@
 import { Typography } from 'antd';
 import CardEquipe from '../components/CardEquipe';
+import Person from '../components/Person';
+import { useState } from 'react';
 
 const { Title } = Typography;
 
 const membros = [
   {
     nome: 'Dr. Gusttavo Nogueira',
-    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Gusttavo%20Nogueira.jpg',
+    imagem:
+      'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Gusttavo%20Nogueira.jpg',
   },
   {
     nome: 'Dr. Vinicius Meneses',
-    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Vinicius%20Meneses.jpeg',
+    imagem:
+      'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dr.%20Vinicius%20Meneses.jpeg',
   },
   {
     nome: 'Dra. Juliana Andrade',
-    imagem: 'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dra.%20Juliana%20Andrade.jpeg',
+    imagem:
+      'https://zxqgsxwwkfqsawhkvspn.supabase.co/storage/v1/object/public/images//Dra.%20Juliana%20Andrade.jpeg',
   },
 ];
 
 const Equipe = () => {
+  const [selectedPerson, setSelectedPerson] = useState(null);
+
   return (
     <section
       style={{
@@ -60,13 +67,17 @@ const Equipe = () => {
         }}
       >
         {membros.map((member) => (
-          <CardEquipe
-            key={member.nome}
-            nome={member.nome}
-            imagemUrl={member.imagem}
-          />
+          <div key={member.nome} onClick={() => setSelectedPerson(member.nome)} style={{ cursor: 'pointer' }}>
+            <CardEquipe nome={member.nome} imagemUrl={member.imagem} />
+          </div>
         ))}
       </div>
+
+      <Person
+        open={!!selectedPerson}
+        onClose={() => setSelectedPerson(null)}
+        personName={selectedPerson}
+      />
     </section>
   );
 };
