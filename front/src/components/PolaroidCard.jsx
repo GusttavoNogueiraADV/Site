@@ -1,32 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 const PolaroidCard = ({ post, style, isMobile }) => {
   const isVideo = post.src.endsWith('.mp4');
   const videoRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
 
   const handleMouseEnter = () => {
-    if (!isMobile && videoRef.current) {
+    if (videoRef.current) {
       videoRef.current.muted = false;
-      setIsMuted(false);
     }
   };
 
   const handleMouseLeave = () => {
-    if (!isMobile && videoRef.current) {
+    if (videoRef.current) {
       videoRef.current.muted = true;
-      setIsMuted(true);
-    }
-  };
-
-  const handleVideoClick = () => {
-    if (isMobile && videoRef.current) {
-      const video = videoRef.current;
-      video.muted = false;
-      setIsMuted(false);
-      video.play().catch((err) => {
-        console.error('Erro ao reproduzir o vídeo no mobile:', err);
-      });
     }
   };
 
@@ -56,7 +42,6 @@ const PolaroidCard = ({ post, style, isMobile }) => {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleVideoClick}
     >
       <div style={{ ...styles.header, marginBottom: 8 }}>
         <div style={{ ...styles.userInfo }}>
@@ -90,31 +75,26 @@ const PolaroidCard = ({ post, style, isMobile }) => {
             />
           </span>
         </div>
-        <span style={{ fontSize: isMobile ? 13 : 18, color: 'white' }}>⋯</span>
+        <span style={{ fontSize: isMobile ? 13 : 18, color: 'white', cursor: 'pointer' }}>⋯</span>
       </div>
 
       {isVideo ? (
-        <div style={{ position: 'relative' }}>
-          <video
-            ref={videoRef}
-            src={post.src}
-            alt={post.caption}
-            style={{
-              width: '100%',
-              height: imageHeight,
-              borderRadius: 6,
-              objectFit: 'cover',
-              marginBottom: 12,
-            }}
-            autoPlay
-            loop
-            muted={isMuted}
-            playsInline
-          />
-          {isMobile && isMuted && (
-            <div style={styles.muteOverlay}>🔇 Toque para ouvir</div>
-          )}
-        </div>
+        <video
+          ref={videoRef}
+          src={post.src}
+          alt={post.caption}
+          style={{
+            width: '100%',
+            height: imageHeight,
+            borderRadius: 6,
+            objectFit: 'cover',
+            marginBottom: 12,
+          }}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
       ) : (
         <img
           src={post.src}
@@ -207,18 +187,6 @@ const styles = {
   },
   leftActions: {
     display: 'flex',
-  },
-  muteOverlay: {
-    position: 'absolute',
-    bottom: 8,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    color: 'white',
-    fontSize: 10,
-    padding: '2px 6px',
-    borderRadius: 4,
-    pointerEvents: 'none',
   },
 };
 
