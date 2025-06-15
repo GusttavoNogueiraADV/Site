@@ -53,6 +53,7 @@ const Contact = ({ onShowDesk }) => {
     return (
         <>
             <section
+             className="contact-hero-section"
                 style={{
                     height: '70vh',
                     backgroundImage: bgUrl
@@ -341,61 +342,70 @@ const Contact = ({ onShowDesk }) => {
             />
 
             <style>{`
-                @media (max-width: 768px) {
-                    .contact-main-container {
-                        flex-direction: column !important;
-                        font-size: 1.2rem !important;
-                    }
-                    .contact-left {
-                        padding-right: 0 !important;
-                        padding-bottom: 20px;
-                        height: auto !important;
-                    }
-                    .contact-right {
-                        padding-left: 0 !important;
-                        font-size: 1rem !important;
-                    }
-                         .contact-right p {
-                        padding-left: 0 !important;
-                        font-size: 1.1rem !important;
-                    }
-                    .contact-left .vertical-line {
-                        display: none !important;
-                    }
+    .contact-hero-section {
+        background-attachment: fixed;
+    }
 
-                    .blue-section-container {
-                        flex-direction: column !important;
-                        font-size: 1rem !important;
-                        min-height: auto !important;
-                    }
-                    .blue-left {
-                        padding-right: 0 !important;
-                        margin-bottom: 25px;
-                        height: auto !important;
-                        align-items: flex-start !important;
-                        text-align: left !important;
-                    }
-                    .blue-left div.vertical-line {
-                        display: none !important;
-                    }
-                    .blue-right {
-                        flex-direction: column !important;
-                        gap: 20px !important;
-                        padding-left: 0 !important;
-                        font-size: 0.9rem !important;
-                    }
-                    .blue-right > div {
-                        max-width: 100% !important;
-                    }
-                    .blue-right iframe {
-                        width: 100% !important;
-                        height: 200px !important;
-                    }
-                    .line {
-                        display: none !important;
-                    }
-                }
-            `}</style>
+    @media (max-width: 768px) {
+        .contact-hero-section {
+            background-attachment: scroll !important;
+        }
+
+        .contact-main-container {
+            flex-direction: column !important;
+            font-size: 1.2rem !important;
+        }
+        .contact-left {
+            padding-right: 0 !important;
+            padding-bottom: 20px;
+            height: auto !important;
+        }
+        .contact-right {
+            padding-left: 0 !important;
+            font-size: 1rem !important;
+        }
+        .contact-right p {
+            padding-left: 0 !important;
+            font-size: 1.1rem !important;
+        }
+        .contact-left .vertical-line {
+            display: none !important;
+        }
+
+        .blue-section-container {
+            flex-direction: column !important;
+            font-size: 1rem !important;
+            min-height: auto !important;
+        }
+        .blue-left {
+            padding-right: 0 !important;
+            margin-bottom: 25px;
+            height: auto !important;
+            align-items: flex-start !important;
+            text-align: left !important;
+        }
+        .blue-left div.vertical-line {
+            display: none !important;
+        }
+        .blue-right {
+            flex-direction: column !important;
+            gap: 20px !important;
+            padding-left: 0 !important;
+            font-size: 0.9rem !important;
+        }
+        .blue-right > div {
+            max-width: 100% !important;
+        }
+        .blue-right iframe {
+            width: 100% !important;
+            height: 200px !important;
+        }
+        .line {
+            display: none !important;
+        }
+    }
+`}</style>
+
         </>
     );
 };
