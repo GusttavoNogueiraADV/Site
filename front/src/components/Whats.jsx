@@ -22,6 +22,7 @@ const Whats = () => {
   const [chatBlocked, setChatBlocked] = useState(false);
   const [showPhoneInput, setShowPhoneInput] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isSending, setIsSending] = useState(false); 
 
   const scrollRef = useRef(null);
 
@@ -133,11 +134,14 @@ const Whats = () => {
     e.preventDefault();
     if (!phoneNumber.trim()) return alert('Por favor, insira um número válido.');
 
+    setIsSending(true);
 
-    axios.post(`${process.env.REACT_APP_API_URL}/api/send-email`, {
-      selectedOptions: selectedOptions,
-      phoneNumber: phoneNumber,
-    }).then((response) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send-email`, {
+        selectedOptions: selectedOptions,
+        phoneNumber: phoneNumber,
+      });
+
       if (response.status === 200) {
         setMessages((prev) => [
           ...prev,
@@ -147,9 +151,11 @@ const Whats = () => {
       } else {
         alert('Ocorreu um erro ao enviar o e-mail.');
       }
-    }).catch(() => {
+    } catch {
       alert('Erro de comunicação com o servidor.');
-    });
+    } finally {
+      setIsSending(false); 
+    }
   };
 
   const renderOptions = () => {
@@ -191,8 +197,7 @@ const Whats = () => {
 
   return (
     <>
-      {/* Estilos do scroll customizados para esse componente apenas */}
-      <style>
+s      <style>
         {`
           .whats-scroll::-webkit-scrollbar {
             width: 8px !important;
@@ -287,7 +292,6 @@ const Whats = () => {
           <FaTimes style={{ cursor: 'pointer' }} onClick={toggleChat} title="Fechar" />
         </div>
 
-        {/* Aqui aplicamos a classe exclusiva para o scroll */}
         <div
           className="whats-scroll"
           style={{
@@ -403,7 +407,7 @@ const Whats = () => {
                   marginBottom: 6,
                   boxSizing: 'border-box',
                 }}
-                disabled={isTyping}
+                disabled={isTyping || isSending}
                 required
               />
               <button
@@ -414,17 +418,16 @@ const Whats = () => {
                   padding: '10px 16px',
                   borderRadius: '18px',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: isSending ? 'not-allowed' : 'pointer',
                   fontSize: '14px',
                   width: '100%',
                 }}
-                disabled={isTyping}
+                disabled={isTyping || isSending}
               >
-                Enviar
+                {isSending ? 'Enviando...' : 'Enviar'}
               </button>
             </form>
           )}
-
           <div ref={scrollRef} />
         </div>
       </div>
